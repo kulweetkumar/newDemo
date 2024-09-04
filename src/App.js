@@ -11,6 +11,7 @@ import { store } from "./redux/store";
 import Login from './components/pages/login';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure you have Bootstrap CSS imported
 import './App.css'; // Add your custom CSS here
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   return (
@@ -19,6 +20,9 @@ const App = () => {
         <div className="App">
           <Navbar />
           <div className="content-container">
+          <div className="login-background">
+          <ToastContainer position="top-right" autoClose={3000} />
+
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
@@ -27,6 +31,7 @@ const App = () => {
               <Route path='/term-condition' element={<TermCondition />} />
               <Route path='/login' element={<Login />} />
             </Routes>
+          </div>
           </div>
         </div>
       </Router>

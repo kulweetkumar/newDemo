@@ -1,18 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import ReactDOM from 'react-dom/client'; // Correct import
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './index.css';
 
-// Create a root for concurrent mode rendering
+// Create a root and render the App
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
-// Render the App component inside the root
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-
-// Optional: Measure and report web vitals
-reportWebVitals();

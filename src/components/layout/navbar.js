@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/images/logo.webp'
 
 const Navbar = () => {
   return (
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top" >
-      <Link className="navbar-brand" to="/">MyApp</Link>
+      <Link className="navbar-brand" to="/">
+      <img src={logo} alt="Logo" style={{ height: '40px' }} /> 
+      </Link>
       <div className="collapse navbar-collapse">
         <ul className="navbar-nav mr-auto" style={{ display: 'flex', listStyleType: 'none', margin: 0, padding: 0, justifyContent: 'left' }}>
           <li className="nav-item" style={{ marginRight: '15px' }}>

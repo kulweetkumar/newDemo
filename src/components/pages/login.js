@@ -32,6 +32,7 @@ const Login = () => {
     if (!validate()) {
       return;
     }
+    
     try {
       const user = await dispatch(authLogin(credentials));
       if (user.statusCode === 200) {

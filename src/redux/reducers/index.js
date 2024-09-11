@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import authReducer from '../actions/index';
+import authReducer from '../reducers/authReducer';
 import { reducer as formReducer } from 'redux-form';
 
 const RootReducer = combineReducers({

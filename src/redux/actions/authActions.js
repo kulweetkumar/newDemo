@@ -1,3 +1,5 @@
+// src/actions/authActions.js
+
 import Axios from 'axios';
 import * as ActionTypes from '../actionTypes';
 
@@ -5,18 +7,12 @@ const apiPath = 'http://localhost:2020';
 const secretKey = 'U2FsdGVkX1/RJbPyYVG6OMCBGjA6IPdWJYYlHNS7ido4t8fWoLkw1qNEuAfd2AaY';
 const publishKey = 'U2FsdGVkX1+aakRuXf1/qelNETehvEIooh61AYeIhqKnPx+XG5YuQqS7iTtCUXMZ';
 const token = localStorage.getItem('token');
-const initialState = {
-  isAuthenticated: !!localStorage.getItem('token'),
-  user: JSON.parse(localStorage.getItem('user')) || null,
-  loader: false,
-  error: null,
-};
 
 const headers = {
-  Authorization: `Bearer ${token ? token : ""}`,
+  Authorization: `Bearer ${token?token: ""}`,
   'secret_key': secretKey,
   'publish_key': publishKey
-}
+};
 
 export const authLogin = (credentials) => async (dispatch) => {
   try {
@@ -43,20 +39,35 @@ export const authLogin = (credentials) => async (dispatch) => {
 };
 
 export const authLogout = () => async (dispatch) => {
-  try {
-    if (token) {
-      await Axios.post(`${apiPath}/api/logout`, {}, {
-        headers
-      });
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      dispatch({
-        type: ActionTypes.AUTH_LOGOUT,
-      });
+  return new Promise(async (resolve, reject) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (token) {
+        const response = await Axios.post(`${apiPath}/api/logout`, {}, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            secret_key: secretKey,
+            publish_key: publishKey
+          }
+        });
+        if (response.status === 200) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          dispatch({
+            type: ActionTypes.AUTH_LOGOUT,
+          });
+          resolve('Logout successful');
+        } else {
+          reject('Logout failed: No response from server. Please check your network connection.');
+        }
+      } else {
+        reject('No token found');
+      }
+    } catch (error) {
+      console.error('Logout failed:', error);
+      reject('Logout failed: An error occurred.');
     }
-  } catch (error) {
-    console.error('Logout failed:', error);
-  }
+  });
 };
 
 export const checkAuth = () => (dispatch) => {
@@ -64,35 +75,3 @@ export const checkAuth = () => (dispatch) => {
     type: ActionTypes.AUTH_CHECK,
   });
 };
-
-// Initial State
-
-
-// Reducer
-const Auth = (state = initialState, { type, payload = null }) => {
-  switch (type) {
-    case ActionTypes.AUTH_LOGIN:
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: payload,
-        loader: false,
-        error: null,
-      };
-    case ActionTypes.AUTH_CHECK:
-      return {
-        ...state,
-        loader: true,
-      };
-      case ActionTypes.AUTH_LOGOUT:
-        return {
-          ...initialState,
-          isAuthenticated: false,
-          user: null,
-          loader: false,
-        };
-    default:
-      return state;
-  }
-};
-export default Auth;

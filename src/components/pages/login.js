@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import {  checkAuth, authLogin, authLogout } from '../../redux/actions'; // Adjust path as necessary
+import {  checkAuth, authLogin, authLogout } from '../../redux/actions/authActions'; // Adjust path as necessary
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
@@ -56,7 +56,8 @@ const Login = () => {
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
-
+  useEffect(() => {
+  }, [isAuthenticated]);
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100">
       <div className="card login-card shadow-lg p-4">

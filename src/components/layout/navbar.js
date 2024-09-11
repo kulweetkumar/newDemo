@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/images/logo.webp';
-import { authLogout } from '../../redux/actions/index';
+import { authLogout } from '../../redux/actions/authActions';
 
 const Navbar = () => {
   const { isAuthenticated } = useSelector(state => state.Auth);
@@ -18,7 +18,9 @@ const Navbar = () => {
     }
   };
 
-  // Debugging logs
+  useEffect(() => {
+  }, [isAuthenticated]);
+
   console.log('Navbar isAuthenticated:', isAuthenticated);
 
   return (

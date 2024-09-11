@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import {  checkAuth, authLogin, authLogout } from '../../redux/actions'; // Adjust path as necessary
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({ email: '', password: '' }); // State for validation errors
+  const [credentials, setCredentials] = useState({ email: '', password: '' ,role:2,device_token:"token",device_type:3});
+  const [errors, setErrors] = useState({ email: '', password: '' }); 
   const dispatch = useDispatch();
-  const { isAuthenticated, user, loader, error } = useSelector(state => state.Auth);
+  const { isAuthenticated, user } = useSelector(state => state.Auth);
+  const navigate = useNavigate();
 
   const validate = () => {
     let isValid = true;
@@ -46,6 +49,8 @@ const Login = () => {
 
   const handleLogout = () => {
     dispatch(authLogout());
+    navigate('/');
+
   };
 
   useEffect(() => {

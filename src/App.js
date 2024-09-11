@@ -30,6 +30,7 @@ const App = () => {
               <Route path='/privacy-policy' element={<PrivacyPolicy />} />
               <Route path='/term-condition' element={<TermCondition />} />
               <Route path='/login' element={<Login />} />
+
             </Routes>
           </div>
           </div>

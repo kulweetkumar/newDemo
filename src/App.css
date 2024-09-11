@@ -38,7 +38,7 @@
 }
 
 .login-background {
-  background-image: url('../public//login.jpg'); /* Add your background image path here */
+  background-image: url('../public/login.jpg'); /* Add your background image path here */
   background-size: cover;
   background-position: center;
   height: 100vh;

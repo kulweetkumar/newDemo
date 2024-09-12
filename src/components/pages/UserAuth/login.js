@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import {  checkAuth, authLogin, authLogout } from '../../redux/actions/authActions'; // Adjust path as necessary
+import {  checkAuth, authLogin, authLogout } from '../../../redux/actions/authActions'; // Adjust path as necessary
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
@@ -50,9 +50,7 @@ const Login = () => {
   const handleLogout = () => {
     dispatch(authLogout());
     navigate('/');
-
   };
-
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);

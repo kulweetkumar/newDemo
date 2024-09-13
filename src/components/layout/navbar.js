@@ -8,7 +8,6 @@ const Navbar = () => {
   const { isAuthenticated } = useSelector(state => state.Auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     try {
       await dispatch(authLogout());
@@ -19,6 +18,7 @@ const Navbar = () => {
     }
   };
 
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <Link className="navbar-brand" to="/">

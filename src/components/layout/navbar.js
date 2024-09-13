@@ -37,8 +37,10 @@ const Navbar = () => {
                 <button className="nav-link btn btn-link" style={{ ...linkStyle, cursor: 'pointer' }} onClick={handleLogout}>Logout</button>
               </li>
             </>
+
           ) : (
             <>
+
               <NavItem to="/login" text="Login" />
               <NavItem to="/signup" text="Signup" />
             </>
@@ -48,6 +50,8 @@ const Navbar = () => {
     </nav>
   );
 };
+
+
 
 const NavItem = ({ to, text }) => (
   <li className="nav-item" style={{ marginRight: '15px' }}>

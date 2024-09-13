@@ -1,9 +1,10 @@
 import * as ActionTypes from '../actionTypes';
+
 const initialState = {
-    isAuthenticated: false,
-    user: null,
-    loader: false,
-    error: null,
+  isAuthenticated: !!localStorage.getItem('token'),
+  user: JSON.parse(localStorage.getItem('user')) || null,
+  loader: false,
+  error: null,
 };
 const Auth = (state = initialState, { type, payload = null }) => {
   switch (type) {
@@ -23,6 +24,8 @@ const Auth = (state = initialState, { type, payload = null }) => {
     case ActionTypes.AUTH_LOGOUT:
       return {
         ...initialState,
+        isAuthenticated: false,
+        user: null,
         loader: false,
       };
     default:

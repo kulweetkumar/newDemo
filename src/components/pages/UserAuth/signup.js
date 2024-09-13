@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  checkAuth, authLogin, authLogout } from '../../redux/actions'; // Adjust path as necessary
+import { useNavigate } from 'react-router-dom';
+
+import {  checkAuth, authLogin, authLogout } from '../../../redux/actions/authActions'; // Adjust path as necessary
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
-const Login = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const [errors, setErrors] = useState({ email: '', password: '' }); // State for validation errors
+const Signup = () => {
+  const [credentials, setCredentials] = useState({ email: '', password: '' ,role:2,device_token:"token",device_type:3});
+  const [errors, setErrors] = useState({ email: '', password: '' }); 
   const dispatch = useDispatch();
-  const { isAuthenticated, user, loader, error } = useSelector(state => state.Auth);
+  const { isAuthenticated, user } = useSelector(state => state.Auth);
+  const navigate = useNavigate();
 
   const validate = () => {
     let isValid = true;
@@ -28,15 +31,14 @@ const Login = () => {
     return isValid;
   };
 
-  const handleLogin = async () => {
+  const handleSignup = async () => {
     if (!validate()) {
       return;
     }
-    
     try {
       const user = await dispatch(authLogin(credentials));
       if (user.statusCode === 200) {
-        toast.success('Login successful!');
+        toast.success('Signup successful!');
       }else{
         toast.error(user);
       }
@@ -47,18 +49,19 @@ const Login = () => {
 
   const handleLogout = () => {
     dispatch(authLogout());
+    navigate('/');
   };
-
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
-
+  useEffect(() => {
+  }, [isAuthenticated]);
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100">
-      <div className="card login-card shadow-lg p-4">
+      <div className="card Signup-card shadow-lg p-4">
         {!isAuthenticated ? (
           <div className="card-body">
-            <h2 className="card-title text-center mb-4">Login</h2>
+            <h2 className="card-title text-center mb-4">Signup</h2>
             <form>
               <div className="form-group mb-3">
                 <input
@@ -82,10 +85,10 @@ const Login = () => {
               </div>
               <button 
                 type="button" 
-                onClick={handleLogin} 
+                onClick={handleSignup} 
                 className="btn btn-primary btn-block"
               >
-                Login
+                Signup
               </button>
             </form>
           </div>
@@ -105,4 +108,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

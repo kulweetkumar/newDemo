@@ -57,9 +57,3 @@
 .card-body {
   padding: 2rem;
 }
-.content-container {
-  padding-top: 60px; /* Adjust this value based on the height of your Navbar */
-}
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top {
-  background-color: #333 !important;
-}

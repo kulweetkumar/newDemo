@@ -3,7 +3,6 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 const ProtectedRoute = ({ children }) => {
     const isAuthenticated = localStorage.getItem('token');
-
     const location = useLocation();
     useEffect(() => {
         if (!isAuthenticated) {

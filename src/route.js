@@ -1,5 +1,5 @@
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
-import Test from "./components/Admin/Dashboard/Test";
+import UserList from "./components/Admin/User/UserList";
 
 
 const dashboardRoutes = [
@@ -11,10 +11,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/test",
-    name: "Test",
-    icon: "nc-icon nc-chart-pie-35",
-    component: Test,
+    path: "/user",
+    name: "User",
+    icon: "nc-icon nc-single-02",
+    component: UserList,
     layout: "/admin"
   }
 ];

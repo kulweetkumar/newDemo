@@ -24,7 +24,7 @@ export const authLogin = (credentials) => async (dispatch) => {
       type: ActionTypes.AUTH_LOGIN,
       payload: body,
     });
-    return Promise.resolve(body);
+    return Promise.resolve(response.data);
   } catch (error) {
     let errorMessage = 'Login failed. Please try again.';
     if (error.response) {

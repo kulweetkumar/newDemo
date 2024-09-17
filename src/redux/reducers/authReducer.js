@@ -23,7 +23,6 @@ const Auth = (state = initialState, { type, payload = null }) => {
       };
     case ActionTypes.AUTH_LOGOUT:
       return {
-        ...initialState,
         isAuthenticated: false,
         user: null,
         loader: false,

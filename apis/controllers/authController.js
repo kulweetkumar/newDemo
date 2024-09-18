@@ -783,6 +783,7 @@ module.exports = {
   },
   getAllUser: async (req, res) => {
     try {
+      console.log(req.query,'queryqueryqueryqueryquery');
       const page = parseInt(req.query.page) || 1; 
       const pageSize = parseInt(req.query.pageSize) || 10; 
           const offset = (page - 1) * pageSize;

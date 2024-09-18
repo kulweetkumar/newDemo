@@ -13,7 +13,7 @@ module.exports = (io) => {
 
     router.use(helper.verifyUser);
     router.post("/register", AuthApis.signup);
-    router.post("/get-user-list", AuthApis.getAllUser);
+    router.get("/get-user-list", AuthApis.getAllUser);
 
     // router.use (middleware.Auth);
     // otp and resend apis

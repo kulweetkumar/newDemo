@@ -97,8 +97,10 @@ export const addUser = (credentials) => async (dispatch) => {
 
 export const getUser = (credentials) => async (dispatch) => {
   try {
-    const response = await Axios.post(`${apiPath}/api/get-user-list`, credentials, { headers });
-
+    const response = await Axios.get(`${apiPath}/api/get-user-list`, {
+      headers,
+      params: credentials,
+    });
     if (response.data.code === 200) {
       const body = response.data.body;
       dispatch({

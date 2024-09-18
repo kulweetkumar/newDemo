@@ -39,6 +39,7 @@ function UserList() {
   const fetchUsers = async (page) => {
     setLoading(true);
     try {
+      console.log(page,pageSize,'==========================================');
       const response = await dispatch(getUser({ page, pageSize }));
       console.log(response);
       setUsers(response.data); 

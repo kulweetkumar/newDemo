@@ -783,7 +783,6 @@ module.exports = {
   },
   getAllUser: async (req, res) => {
     try {
-      console.log(req.query,'queryqueryqueryqueryquery');
       const page = parseInt(req.query.page) || 1; 
       const pageSize = parseInt(req.query.pageSize) || 10; 
           const offset = (page - 1) * pageSize;
@@ -814,4 +813,21 @@ module.exports = {
 
     }
   },
+  changesStatus: async (req, res) => {
+
+  try {
+    const [updated] = await users.update(
+      { status: req.body.status },
+      { where: { id: req.body.id } }
+    );
+    if (updated) {
+      return helper.success(res, "status Updated succesfully",{});
+    } else {
+      return helper.error400(res, "Some thing went wrong ");
+    }
+  } catch (error) {
+    return helper.error400(res, "Some thing went wrong ");
+
+  }
+}
 };

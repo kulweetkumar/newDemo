@@ -129,6 +129,40 @@ export const getUser = (credentials) => async (dispatch) => {
     return Promise.reject(errorMessage);
   }
 };
+export const changeStatus = (credentials) => async (dispatch) => {
+  try {
+    const response = await Axios.get(`${apiPath}/api/changes-status`, {
+      headers,
+      params: credentials,
+    });
+    if (response.data.code === 200) {
+      const body = response.data.body;
+      dispatch({
+        type: ActionTypes.GET_USER,
+        payload: body.users,
+      });
+      return Promise.resolve({
+        data: body.data,
+        totalUsers: body.totalUsers,
+        totalPages: body.totalPages,
+        currentPage: body.currentPage,
+      });
+    } else {
+      let errorMessage = 'Something went wrong.';
+      return Promise.reject(errorMessage);
+    }
+  } catch (error) {
+    let errorMessage = 'Please try again.';
+    if (error.response) {
+      errorMessage = error.response.data.message || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No response from server. Please check your network connection.';
+    } else {
+      errorMessage = error.message || errorMessage;
+    }
+    return Promise.reject(errorMessage);
+  }
+};
 export const checkAuth = () => (dispatch) => {
   dispatch({
     type: ActionTypes.AUTH_CHECK,

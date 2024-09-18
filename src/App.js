@@ -7,16 +7,15 @@ import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
+
 const App = () => {
   const { isAuthenticated } = useSelector(state => state.Auth);
-
   return (
     <div className="App">
       <ToastContainer />
       {isAuthenticated && <AdminNavbar />}
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* Other routes */}
       </Routes>
     </div>
   );

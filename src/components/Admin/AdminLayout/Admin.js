@@ -4,7 +4,7 @@ import AdminNavbar from "../AdminLayout/AdminNavbar";
 import Footer from "../AdminLayout/Footer";
 import Sidebar from "../AdminLayout/Sidebar";
 // import FixedPlugin from "../AdminLayout/FixedPlugin.js";
-import routes from "../../../route.js";
+import routes from "../../../sideBar";
 import sidebarImage from "../../../adminAssets/img/sidebar-3.jpg";
 
 function Admin() {
@@ -15,15 +15,16 @@ function Admin() {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      // Ensure the component is a valid React component
       const Component = prop.component;
+      
       return (
         prop.layout === "/admin" && Component ? (
           <Route
             path={prop.layout + prop.path}
-            element={<Component />} // Use `element` prop to render the component
+            element={<Component />} 
             key={key}
           />
+         
         ) : null
       );
     });
@@ -42,14 +43,6 @@ function Admin() {
           <Footer />
         </div>
       </div>
-      {/* <FixedPlugin
-        hasImage={hasImage}
-        setHasImage={() => setHasImage(!hasImage)}
-        color={color}
-        setColor={(color) => setColor(color)}
-        image={image}
-        setImage={(image) => setImage(image)}
-      /> */}
     </>
   );
 }

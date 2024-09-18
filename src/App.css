@@ -51,3 +51,9 @@
 .card-body {
   padding: 2rem;
 }
+.card-header {
+  display: flex;
+}
+.strpied-tabled-with-hover.card {
+  padding: 10px;
+}

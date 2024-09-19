@@ -1,18 +1,31 @@
 import React from "react";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { useDispatch } from "react-redux"; // Import useDispatch
-import { authLogout } from '../../../redux/actions/authActions'; // Adjust path as necessary
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; 
+import { authLogout } from '../../../redux/actions/authActions';
+import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const handleLogout = async () => {
+    const result = await Swal.fire({
+      title: 'Are you sure ?',
+      text: "Are you sure you want to log out?",
+      showCancelButton: true,
+      confirmButtonColor: '#000000',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, log out',
+    });
+    if (result.isConfirmed) {
+      dispatch(authLogout());
+      navigate('/');
+      toast.dismiss();
+      toast.warning('Admin logout successful!');
 
-  const handleLogout = () => {
-    dispatch(authLogout());
-    navigate('/');
+    }
   };
-
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
@@ -28,7 +41,6 @@ function Header() {
             onClick={(e) => e.preventDefault()}
             className="mr-2"
           >
-            {/* Brand content here */}
           </Navbar.Brand>
         </div>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="mr-2">
@@ -37,7 +49,7 @@ function Header() {
           <span className="navbar-toggler-bar burger-lines"></span>
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="nav mr-auto" navbar>
+          <Nav className="nav ms-auto" navbar>
             <Nav.Item>
               <Nav.Link
                 data-toggle="dropdown"
@@ -58,4 +70,5 @@ function Header() {
     </Navbar>
   );
 }
+
 export default Header;

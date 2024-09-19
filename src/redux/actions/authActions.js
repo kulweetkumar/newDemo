@@ -2,18 +2,15 @@
 
 import Axios from 'axios';
 import * as ActionTypes from '../actionTypes';
-
 const apiPath = 'http://localhost:2020';
 const secretKey = 'U2FsdGVkX1/RJbPyYVG6OMCBGjA6IPdWJYYlHNS7ido4t8fWoLkw1qNEuAfd2AaY';
 const publishKey = 'U2FsdGVkX1+aakRuXf1/qelNETehvEIooh61AYeIhqKnPx+XG5YuQqS7iTtCUXMZ';
 const token = localStorage.getItem('token');
-
 const headers = {
-  Authorization: `Bearer ${token?token: ""}`,
+  Authorization: `Bearer ${token ? token : ""}`,
   'secret_key': secretKey,
   'publish_key': publishKey
 };
-
 export const authLogin = (credentials) => async (dispatch) => {
   try {
     const response = await Axios.post(`${apiPath}/api/login`, credentials, { headers });
@@ -24,7 +21,7 @@ export const authLogin = (credentials) => async (dispatch) => {
       type: ActionTypes.AUTH_LOGIN,
       payload: body,
     });
-    return Promise.resolve(body);
+    return Promise.resolve(response.data);
   } catch (error) {
     let errorMessage = 'Login failed. Please try again.';
     if (error.response) {
@@ -69,7 +66,103 @@ export const authLogout = () => async (dispatch) => {
     }
   });
 };
+export const addUser = (credentials) => async (dispatch) => {
+  try {
+    const response = await Axios.post(`${apiPath}/api/register`, credentials, { headers });
+    console.log(response);
+    if (response.data.code === 200) {
+      const body = response.data.body;
+      dispatch({
+        type: ActionTypes.ADD_USER,
+        payload: body,
+      });
+      return Promise.resolve(response.data);
+    } else {
+      let errorMessage = 'Something went wrong.';
+      return Promise.reject(errorMessage);
+    }
 
+  } catch (error) {
+    let errorMessage = 'Please try again.';
+    if (error.response) {
+      errorMessage = error.response.data.message || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No response from server. Please check your network connection.';
+    } else {
+      errorMessage = error.message || errorMessage;
+    }
+    return Promise.reject(errorMessage);
+  }
+};
+
+export const getUser = (credentials) => async (dispatch) => {
+  try {
+    const response = await Axios.get(`${apiPath}/api/get-user-list`, {
+      headers,
+      params: credentials,
+    });
+    if (response.data.code === 200) {
+      const body = response.data.body;
+      dispatch({
+        type: ActionTypes.GET_USER,
+        payload: body.users,
+      });
+      return Promise.resolve({
+        data: body.data,
+        totalUsers: body.totalUsers,
+        totalPages: body.totalPages,
+        currentPage: body.currentPage,
+      });
+    } else {
+      let errorMessage = 'Something went wrong.';
+      return Promise.reject(errorMessage);
+    }
+  } catch (error) {
+    let errorMessage = 'Please try again.';
+    if (error.response) {
+      errorMessage = error.response.data.message || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No response from server. Please check your network connection.';
+    } else {
+      errorMessage = error.message || errorMessage;
+    }
+    return Promise.reject(errorMessage);
+  }
+};
+export const changeStatus = (credentials) => async (dispatch) => {
+  try {
+    const response = await Axios.get(`${apiPath}/api/changes-status`, {
+      headers,
+      params: credentials,
+    });
+    if (response.data.code === 200) {
+      const body = response.data.body;
+      dispatch({
+        type: ActionTypes.GET_USER,
+        payload: body.users,
+      });
+      return Promise.resolve({
+        data: body.data,
+        totalUsers: body.totalUsers,
+        totalPages: body.totalPages,
+        currentPage: body.currentPage,
+      });
+    } else {
+      let errorMessage = 'Something went wrong.';
+      return Promise.reject(errorMessage);
+    }
+  } catch (error) {
+    let errorMessage = 'Please try again.';
+    if (error.response) {
+      errorMessage = error.response.data.message || errorMessage;
+    } else if (error.request) {
+      errorMessage = 'No response from server. Please check your network connection.';
+    } else {
+      errorMessage = error.message || errorMessage;
+    }
+    return Promise.reject(errorMessage);
+  }
+};
 export const checkAuth = () => (dispatch) => {
   dispatch({
     type: ActionTypes.AUTH_CHECK,

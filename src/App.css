@@ -1,18 +1,12 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -56,4 +50,10 @@
 
 .card-body {
   padding: 2rem;
+}
+.card-header {
+  display: flex;
+}
+.strpied-tabled-with-hover.card {
+  padding: 10px;
 }

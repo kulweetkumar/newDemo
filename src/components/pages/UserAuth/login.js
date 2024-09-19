@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { authLogin } from '../../../redux/actions/authActions'; // Adjust path as necessary
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '', role: 2, device_token: "token", device_type: 3 });
@@ -34,10 +33,9 @@ const Login = () => {
     }
     
     try {
-      console.log('Attempting login with:', credentials);
       const response = await dispatch(authLogin(credentials));
-      console.log('Login response:', response);
-      if (response.statusCode === 200) {
+      if (response.code === 200) {
+        toast.dismiss(); // some we have toast show and another function hit with the time to we use this 
         toast.success('Login successful!');
         navigate('/admin/dashboard');
       } else {
@@ -47,6 +45,7 @@ const Login = () => {
       toast.error('An error occurred. Please try again.');
     }
   };
+
   return (
     <div className="login-background">
       <div className="container d-flex justify-content-center align-items-center min-vh-100">
@@ -87,12 +86,7 @@ const Login = () => {
           ) : (
             <div className="card-body text-center">
               <p className="mb-3">Welcome to Admin Panel</p>
-              <button
-                onClick={() => navigate('/admin/dashboard')}
-                className="btn btn-secondary"
-              >
-                Dashboard
-              </button>
+            
             </div>
           )}
         </div>
